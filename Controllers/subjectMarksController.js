@@ -12,6 +12,15 @@ const handleNewUser=async(req,res)=>{
         res.status(409).json({"message":"name and age matches to other candidate. Please give alternative name "})
         return;
     }
+
+    if(marks.physics[0]<0 || marks.physics[1]<=0 || marks.maths[0]<0 || marks.maths[1]<=0 || marks.chemistry[0]<0 || marks.chemistry[1]<=0){
+        res.status(409).json({"message":"marks can't be negative "});
+        return;
+    }
+    if(marks.physics[0]>marks.physics[1] || marks.maths[0]>marks.maths[1] || marks.chemistry[0] >marks.chemistry[1]){
+        res.status(409).json({"message":"obtained marks should always be less than equal to total marks  "})
+        return;
+    }
     
     try {
         

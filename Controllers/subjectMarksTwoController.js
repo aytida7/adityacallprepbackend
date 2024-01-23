@@ -12,6 +12,19 @@ const handleNewUser=async(req,res)=>{
         res.status(409).json({"message":"first_name, last_name  and years_old matches to other candidate. Please give alternative field values "})
         return;
     }
+
+    if(scores.marks_obtained[0]<0 || scores.marks_obtained[1]<0 || scores.marks_obtained[2]<0){
+        res.status(409).json({"message":"obtained marks can't be negative"})
+        return;
+    }
+    if(scores.total_marks[0]<=0 || scores.total_marks[1]<=0 || scores.total_marks[2]<=0){
+        res.status(409).json({"message":"obtained marks can't be less than zero"})
+        return;
+    }
+    if(scores.total_marks[0]<scores.marks_obtained[0] || scores.total_marks[1]<scores.marks_obtained[1] || scores.total_marks[2]<scores.marks_obtained[2]){
+        res.status(409).json({"message":"obtained marks can't be greater than total marks"})
+        return;
+    }
     
     try {
         
